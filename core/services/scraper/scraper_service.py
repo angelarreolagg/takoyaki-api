@@ -1,13 +1,23 @@
 from decouple import config
 from .entries_management import get_last_entries_urls, get_entry_data
 
-def scrape_news():
-    print("Getting URLs from .env...")
-    site_01_url = config("SITE_01_URL")
-    print(".env successfully loaded.")
+# News Entries Objects have the following structure:
+# """
+# {
+#   main_image_url : string
+#   title : string
+#   subtitle : string
+#   info_subtitles : string
+#   info_data : string
+# }
+# """
 
+def scrape_news():
     last_news_urls = []
     last_news_data = []
+    
+    print("Getting URLs from .env...")
+    site_01_url = config("SITE_01_URL")
 
     print(f"Getting the most recent news from {site_01_url} ...")
     get_last_entries_urls(site_01_url, last_news_urls)
