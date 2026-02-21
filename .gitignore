@@ -9,3 +9,6 @@ db.sqlite3
 .env.test
 *.log
 .DS_Store
+
+# Ignore Celery Beat schedule file
+celerybeat-schedule
