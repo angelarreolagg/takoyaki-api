@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -153,7 +154,20 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 # Celery Config
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
+CELERY_BROKER_URL = config('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND')
+CELERY_TIMEZONE = "UTC"
+# CELERY_BEAT_SCHEDULE = {
+#     'scraper-each-2-minutes': {
+#         'task': 'core.tasks.info_source_scraper',  # ruta completa a tu task
+#         'schedule': 120.0,  # segundos (2 min = 120s)
+#     },
+# }
+# CELERY_BEAT_SCHEDULE = {
+#     'scraper-diario-geek': {
+#         'task': 'core.tasks.info_source_scraper',
+#         'schedule': crontab(hour=0, minute=49), 
+#     },
+# }
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
